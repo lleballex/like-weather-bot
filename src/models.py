@@ -114,7 +114,7 @@ class User(peewee.Model):
         visibility = data.visibility(self.distance)
         visibility_label = self.get_distance_label()
 
-        return (f'🤘 {self.active_city.title} {get_date(days=day_change).lower()}\n\n'
+        return (f'🤘 {self.active_city.title} {get_date(day_change).lower()}\n\n'
                 f'🌦 {int(temp["temp"])} {temp_label}, {data.detailed_status} '
                 f'(ощущеатся {int(temp["feels_like"])} {temp_label})\n'
                 f'🌡 Макс / мин: {int(temp["temp_max"])}° / {int(temp["temp_min"])}°\n'

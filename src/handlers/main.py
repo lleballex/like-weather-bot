@@ -26,6 +26,13 @@ async def menu(message, state):
     await message.answer('Что будете заказывать?', reply_markup=main_kb)
 
 
+@dp.message_handler(commands='author', state='*')
+async def author(message, state):
+    await state.finish()
+    await message.answer('@lleballex - огромное ему спасибо за то, что разработал меня.\n'
+                         'Я это никогда не забуду! 💪❤️😎')
+
+
 @dp.message_handler(commands='help', state='*')
 async def help(message, state):
     await state.finish()
@@ -35,6 +42,7 @@ async def help(message, state):
                          '/start - Запуск бота\n'
                          '/menu - Меню\n'
                          '/help - Помощь\n'
+                         '/author - Сведения об авторе\n'
                          '/weather - Узнать погоду\n'
                          '/change_city - Сменить город\n'
                          '/settings - Настройки\n')

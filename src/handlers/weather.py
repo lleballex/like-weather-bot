@@ -4,6 +4,8 @@ from .main import add_city
 from misc import COMMANDS as CMDS
 from keyboards import get_weather_kb
 
+from aiogram.utils.exceptions import MessageNotModified
+
 
 @dp.message_handler(commands='weather', state='*')
 @dp.message_handler(lambda msg: msg.text == CMDS['weather'])
@@ -28,6 +30,9 @@ async def change_day(query):
     weather = user.get_weather(day_change)
 
     if weather:
-        await query.message.edit_text(weather, reply_markup=get_weather_kb(day_change))
+        try:
+            await query.message.edit_text(weather, reply_markup=get_weather_kb(day_change))
+        except MessageNotModified:
+            pass
     else:
         await add_city(message)

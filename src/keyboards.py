@@ -41,12 +41,10 @@ def get_weather_kb(day_change=0):
     keyboard = InlineKeyboardMarkup()
 
     if day_change != 0:
-        date = localtime() + timedelta(days=day_change-1)
-        keyboard.add(InlineKeyboardButton(f'◀️ {get_date(date)}',
-                                          callback_data=f'weather:{day_change-1}'))
+        keyboard.add(InlineKeyboardButton(f'◀️ {get_date(day_change - 1)}',
+                                          callback_data=f'weather:{day_change - 1}'))
     if day_change != 5:
-        date = localtime() + timedelta(days=day_change+1)
-        keyboard.insert(InlineKeyboardButton(f'{get_date(date)} ▶️',
-                                             callback_data=f'weather:{day_change+1}'))
+        keyboard.insert(InlineKeyboardButton(f'{get_date(day_change + 1)} ▶️',
+                                             callback_data=f'weather:{day_change + 1}'))
 
     return keyboard

@@ -19,6 +19,9 @@ python -m venv env
 env\scripts\activate
 pip install -r requirements.txt
 cd src
+
+# First write the data to .env (more details below)
+
 python bot.py migrate
 ```
 
@@ -31,6 +34,9 @@ python3 -m venv env
 . env/bin/activate
 pip install -r requirements.txt
 cd src
+
+# First write the data to .env (more details below)
+
 python bot.py migrate
 ```
 

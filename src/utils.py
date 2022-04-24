@@ -11,18 +11,13 @@ def localtime(time=None):
     return time + timedelta(hours=3)
 
 
-def get_date(date=None, days=0):
-    now = localtime()
-    if date:
-        days = int((date - now).total_seconds()) // 60 // 60 // 24
-
-    if days < 1:
+def get_date(day_change):
+    if day_change < 1:
         return 'Сегодня'
-    if days == 1:
+    if day_change == 1:
         return 'Завтра'
-    if days == 2:
+    if day_change == 2:
         return 'Послезавтра'
-
-    if not date:
-        date = now + timedelta(days=days)
-    return f'{date.day} {MONTHS[date.month]}'
+    else:
+        date = localtime() + timedelta(days=day_change)
+        return f'{date.day} {MONTHS[date.month]}'
