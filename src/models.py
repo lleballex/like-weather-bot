@@ -1,7 +1,10 @@
 from misc import db, owm
+from utils import localtime, get_date
 
 import peewee
 from pyowm.commons.exceptions import NotFoundError
+
+from datetime import datetime
 
 
 DEGREES = (
@@ -89,12 +92,16 @@ class User(peewee.Model):
     def get_distance_label(self):
         return dict(DISTANCE)[self.distance]
 
-    def get_weather(self):
+    def get_weather(self, day_change=0):
         if not self.active_city:
             return None
 
-        data = owm.weather_at_place(self.active_city.title).weather
-
+        if not day_change:
+            data = owm.weather_at_place(self.active_city.title).weather
+        else:
+            forecast = owm.forecast_at_place(self.active_city.title, '3h')
+            data = forecast.forecast.get(day_change*8 - 1)
+            
         temp = data.temperature(self.degrees)
         temp_label = self.get_degrees_label()
 
@@ -107,7 +114,7 @@ class User(peewee.Model):
         visibility = data.visibility(self.distance)
         visibility_label = self.get_distance_label()
 
-        return (f'🤘 {self.active_city.title} сегодня\n\n'
+        return (f'🤘 {self.active_city.title} {get_date(days=day_change).lower()}\n\n'
                 f'🌦 {int(temp["temp"])} {temp_label}, {data.detailed_status} '
                 f'(ощущеатся {int(temp["feels_like"])} {temp_label})\n'
                 f'🌡 Макс / мин: {int(temp["temp_max"])}° / {int(temp["temp_min"])}°\n'

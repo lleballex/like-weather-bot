@@ -2,6 +2,7 @@ from misc import dp
 from models import User
 from .main import add_city
 from misc import COMMANDS as CMDS
+from keyboards import get_weather_kb
 
 
 @dp.message_handler(commands='weather', state='*')
@@ -13,6 +14,20 @@ async def weather(message, state):
     weather = user.get_weather()
 
     if weather:
-        await message.answer(weather)
+        await message.answer(weather, reply_markup=get_weather_kb())
+    else:
+        await add_city(message)
+
+
+@dp.callback_query_handler(lambda query: query.data.startswith('weather:'))
+async def change_day(query):
+    await query.answer()
+
+    day_change = int(query.data.replace('weather:', ''))
+    user = User.get(user_id=query.from_user.id)
+    weather = user.get_weather(day_change)
+
+    if weather:
+        await query.message.edit_text(weather, reply_markup=get_weather_kb(day_change))
     else:
         await add_city(message)
