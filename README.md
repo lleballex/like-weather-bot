@@ -8,7 +8,7 @@ Telegram bot that gives access to the weather of any city from any country. The 
 - 😄 Peewee
 - 🤹🏽 PyOWM
 
-## Getting started
+## 🔥 Getting started
 
 ### Installing
 
@@ -55,7 +55,7 @@ OWM_TOKEN=owm api token (openweathermap.org)
 python bot.py
 ```
 
-## Contact me:
+## 🙋🏽‍♂️ Contact me
 
 [<img width="30px" title="lleballex | Telegram" src="https://raw.githubusercontent.com/github/explore/main/topics/telegram/telegram.png">](https://t.me/lleballex)
 [<img width="30px" title="lleballex | VK" src="https://raw.githubusercontent.com/github/explore/main/topics/vk/vk.png">](https://vk.com/lleballex)
